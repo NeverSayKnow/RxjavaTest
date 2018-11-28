@@ -3,4 +3,7 @@
     <string name="random_poem">随机诗词</string>
     <string name="random_poem_rx">随机诗词Rx</string>
     <string name="get_weather">获取天气</string>
+    <string name="flap_map">FlapMap操作符</string>
+    <string name="zip">zip操作符</string>
+    <string name="add">+1</string>
 </resources>

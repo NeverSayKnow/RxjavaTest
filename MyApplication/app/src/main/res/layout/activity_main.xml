@@ -42,7 +42,7 @@
         android:text="@string/random_poem"
         android:textSize="20sp"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"/>
+        android:layout_marginTop="10dp"/>
 
     <Button
         android:id="@+id/btn_random_poem_rx"
@@ -51,7 +51,7 @@
         android:text="@string/random_poem_rx"
         android:textSize="20sp"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"/>
+        android:layout_marginTop="10dp"/>
 
     <Button
         android:id="@+id/btn_weather"
@@ -60,6 +60,33 @@
         android:text="@string/get_weather"
         android:textSize="20sp"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"/>
+        android:layout_marginTop="10dp"/>
+
+    <Button
+        android:id="@+id/btn_flap_map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/get_weather"
+        android:textSize="20sp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"/>
+
+    <Button
+        android:id="@+id/btn_zip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/zip"
+        android:textSize="20sp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"/>
+
+    <Button
+        android:id="@+id/btn_flow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add"
+        android:textSize="20sp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"/>
 
 </LinearLayout>
