@@ -1,5 +1,8 @@
 package com.yitianli.myapplication;
 
+import android.content.Intent;
+import android.content.res.AssetManager;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,9 +10,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.yitianli.myapplication.poem_mvp.PoemActivity;
+
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btn_flap_map;
     private Button btn_zip;
     private Button btn_flow;
+    private Button btn_mvp_test;
     private Subscription mSubscription;
 
     @Override
@@ -61,9 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
-
         apiServer = MyRetrofit.getInstance().getRetrofit().create(ApiServer.class);
-
     }
 
     private void initView() {
@@ -76,12 +85,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_flap_map = findViewById(R.id.btn_flap_map);
         btn_zip = findViewById(R.id.btn_zip);
         btn_flow = findViewById(R.id.btn_flow);
+        btn_mvp_test = findViewById(R.id.btn_mvp_test);
         btn_random_poem.setOnClickListener(this);
         btn_random_poem_rx.setOnClickListener(this);
         btn_weather.setOnClickListener(this);
         btn_flap_map.setOnClickListener(this);
         btn_zip.setOnClickListener(this);
         btn_flow.setOnClickListener(this);
+        btn_mvp_test.setOnClickListener(this);
     }
 
     @Override
@@ -274,56 +285,125 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Log.e("TAG","======onComplete");
                     }
                 });*/
-//                Flowable.create(new FlowableOnSubscribe<Integer>() {
-//                    @Override
-//                    public void subscribe(FlowableEmitter<Integer> emitter) throws Exception {
-////                        Log.e("TAG","======emitter1");
-////                        emitter.onNext(1);
-////                        Log.e("TAG","======emitter2");
-////                        emitter.onNext(2);
-////                        Log.e("TAG","======emitter3");
-////                        emitter.onNext(3);
-////                        Log.e("TAG","======onComplete");
-////                        emitter.onComplete();
-//                        for (int i = 0; i<100000000; i++) {
-////                            Log.e("TAG","emitter" + i);
-//                            emitter.onNext(i);
-//                        }
-//                    }
-//                },BackpressureStrategy.LATEST)
-                Flowable.interval(1,TimeUnit.MILLISECONDS)
-                        .onBackpressureDrop()
+                Flowable.create(new FlowableOnSubscribe<Integer>() {
+                    @Override
+                    public void subscribe(FlowableEmitter<Integer> emitter) throws Exception {
+                        Log.e("TAG","first requested = " + emitter.requested());
+//                        Log.e("TAG","======emitter1");
+//                        emitter.onNext(1);
+//                        Log.e("TAG","======emitter2");
+//                        emitter.onNext(2);
+//                        Log.e("TAG","======emitter3");
+//                        emitter.onNext(3);
+//                        Log.e("TAG","======onComplete");
+//                        emitter.onComplete();
+                        boolean flag;
+                        for (int i = 0; ; i++) {
+                            flag = false;
+                            while (emitter.requested() == 0){
+                                if (!flag){
+                                    Log.e("TAG","Oh! no, I can't emit the value!");
+                                    flag = true;
+                                }
+                            }
+                            emitter.onNext(i);
+                            Log.e("TAG","emit = " + i + " , requested" + emitter.requested());
+                        }
+                    }
+                },BackpressureStrategy.ERROR)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Subscriber<Long>() {
+                        .subscribe(new Subscriber<Integer>() {
                             @Override
                             public void onSubscribe(Subscription s) {
-                                s.request(5);
+//                                Log.e("TAG","onSubscribe");
+                                s.request(12);
+//                                Log.e("TAG","s.request");
+
                             }
 
                             @Override
-                            public void onNext(Long aLong) {
-                                Log.e("TAG","onNext" + aLong);
-                                try {
-                                    Thread.sleep(1000);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
+                            public void onNext(Integer integer) {
+                                Log.e("TAG","onNext"+integer);
                             }
 
                             @Override
                             public void onError(Throwable t) {
-                                Log.e("TAG","onError" + t);
+
                             }
 
                             @Override
                             public void onComplete() {
-                                Log.e("TAG","onComplete");
+
                             }
                         });
                 break;
             case R.id.btn_flow:
-                mSubscription.request(128);
+
+                Flowable.create(new FlowableOnSubscribe<String>() {
+                    @Override
+                    public void subscribe(FlowableEmitter<String> emitter) throws Exception {
+                        try {
+                            AssetManager manager = getResources().getAssets();
+                            InputStream inputStream = manager.open("test.txt");
+                            InputStreamReader reader = new InputStreamReader(inputStream);
+                            BufferedReader br = new BufferedReader(reader);
+
+                            String string;
+
+                            while ((string=br.readLine()) != null && !emitter.isCancelled()){
+                                while (emitter.requested() == 0){
+                                    if (emitter.isCancelled()){
+                                        break;
+                                    }
+                                }
+                                emitter.onNext(string);
+                            }
+
+                            br.close();
+                            reader.close();
+                            inputStream.close();
+                            emitter.onComplete();
+                        }catch (Exception e){
+                            emitter.onError(e);
+                        }
+                    }
+                },BackpressureStrategy.ERROR)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<String>() {
+                    @Override
+                    public void onSubscribe(Subscription s) {
+                        mSubscription = s;
+                        s.request(1);
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        System.out.println(s);
+                        try {
+                            Thread.sleep(2000);
+                            mSubscription.request(1);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        System.out.println(t);
+                        Log.e("TAG","" + t);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+                break;
+            case R.id.btn_mvp_test:
+                Intent intent = new Intent(this,PoemActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;

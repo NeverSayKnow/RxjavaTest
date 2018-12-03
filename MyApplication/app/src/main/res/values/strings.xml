@@ -5,5 +5,6 @@
     <string name="get_weather">获取天气</string>
     <string name="flap_map">FlapMap操作符</string>
     <string name="zip">zip操作符</string>
-    <string name="add">+1</string>
+    <string name="add">再别康桥</string>
+    <string name="mvp_test">MVP测试</string>
 </resources>
