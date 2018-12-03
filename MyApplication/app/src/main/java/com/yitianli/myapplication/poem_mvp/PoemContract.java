@@ -5,7 +5,7 @@ import com.yitianli.myapplication.Poem;
 public interface PoemContract {
 
     interface View {
-
+        //显示加载中
         void showLoading();
 
         void hideLoading();
