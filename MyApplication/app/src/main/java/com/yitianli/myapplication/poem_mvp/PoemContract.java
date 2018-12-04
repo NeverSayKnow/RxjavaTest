@@ -1,30 +1,14 @@
 package com.yitianli.myapplication.poem_mvp;
 
 import com.yitianli.myapplication.Poem;
+import com.yitianli.myapplication.base.BaseCallback;
+import com.yitianli.myapplication.base.BaseView;
 
 public interface PoemContract {
 
-    interface View {
-        //显示加载中
-        void showLoading();
+    interface View extends BaseView {
 
-        void hideLoading();
-
-        void showData(Poem poem);
-
-        void showFailureMsg(String msg);
-
-        void showErrorMsg();
+        void showData(PoemBean2 poem);
     }
 
-    interface Presenter {
-
-        void onSuccess(Poem poem);
-
-        void onFailure(String msg);
-
-        void onError();
-
-        void onComplete();
-    }
 }

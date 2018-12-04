@@ -1,37 +1,43 @@
 package com.yitianli.myapplication.poem_mvp;
 
 import com.yitianli.myapplication.Poem;
+import com.yitianli.myapplication.base.BaseCallback;
+import com.yitianli.myapplication.base.BasePresenter;
 
-public class PoemPresenter implements PoemContract.Presenter{
+public class PoemPresenter extends BasePresenter<PoemContract.View> implements BaseCallback<PoemBean2> {
 
-    private PoemContract.View view;
-
-    public PoemPresenter(PoemContract.View view){
-        this.view = view;
-    }
+//    private PoemContract.View view;
 
     public void getPoem(){
-        view.showLoading();
+        if (!isAttchedView()){
+            return;
+        }
+        getView().showLoading();
         PoemModel.getPoem(this);
     }
 
     @Override
-    public void onSuccess(Poem poem) {
-        view.showData(poem);
+    public void onSuccess(PoemBean2 data) {
+        if (isAttchedView()){
+            getView().showData(data);
+        }
     }
 
     @Override
     public void onFailure(String msg) {
-        view.showFailureMsg(msg);
+        if (isAttchedView()){
+            getView().showToastMsg(msg);
+        }
     }
 
     @Override
     public void onError() {
-        view.showErrorMsg();
+
+        getView().showError();
     }
 
     @Override
     public void onComplete() {
-        view.hideLoading();
+        getView().hideLoading();
     }
 }

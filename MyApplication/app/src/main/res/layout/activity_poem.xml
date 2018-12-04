@@ -1,55 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".poem_mvp.PoemActivity"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    tools:context=".poem_mvp.PoemActivity">
 
-    <TextView
-        android:id="@+id/poem_title"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#000"
-        android:textSize="24sp"
-        android:gravity="center"
-        android:layout_marginTop="10dp"/>
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/poem_authors"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textColor="#daa2a2"
-        android:textSize="20sp"
-        android:gravity="center"/>
+        <TextView
+            android:id="@+id/poem_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:textColor="#000"
+            android:textSize="24sp" />
 
-    <TextView
-        android:id="@+id/poem_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textColor="#55bece"
-        android:textSize="18sp"
-        android:gravity="center"/>
+        <TextView
+            android:id="@+id/poem_authors"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:textColor="#daa2a2"
+            android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/btn_random_poem"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#55bece"
-        android:textColor="#fff"
-        android:text="@string/random_poem"
-        android:textSize="20sp"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"/>
 
-    <ProgressBar
-        android:id="@+id/progressbar_poem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone"/>
+        <TextView
+            android:id="@+id/poem_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:textColor="#55bece"
+            android:textSize="18sp" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/poem_authors_introduce"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="left"
+            android:textColor="#daa2a2"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btn_random_poem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:background="#55bece"
+            android:text="@string/random_poem"
+            android:textColor="#fff"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+
+</ScrollView>

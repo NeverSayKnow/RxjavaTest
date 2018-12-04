@@ -106,9 +106,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 httpResultCall.enqueue(new Callback<HttpResult<Poem>>() {
                     @Override
                     public void onResponse(Call<HttpResult<Poem>> call, Response<HttpResult<Poem>> response) {
-                        Log.e("TAG", "=========" + response.body().getResult().getTitle());
-                        Log.e("TAG", "=========" + response.body().getResult().getAuthors());
-                        Log.e("TAG", "=========" + response.body().getResult().getContent());
                         poem_title.setText(response.body().getResult().getTitle());
                         poem_authors.setText(response.body().getResult().getAuthors());
                         String s = response.body().getResult().getContent();
@@ -148,6 +145,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     builder.append("\n");
                                 }
                                 poem_content.setText(builder.toString());
+                            }
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                Log.e("TAG","-----" + throwable.toString());
                             }
                         });
                 break;

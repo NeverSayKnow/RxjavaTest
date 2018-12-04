@@ -26,7 +26,7 @@ public class MyRetrofit {
         }
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.apiopen.top/")
+                .baseUrl("http://api.avatardata.cn/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(builder.build())
