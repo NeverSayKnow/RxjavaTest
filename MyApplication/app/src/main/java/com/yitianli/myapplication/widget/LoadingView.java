@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+
 import com.yitianli.myapplication.R;
 
 public class LoadingView extends Dialog implements View.OnClickListener {
@@ -27,13 +29,13 @@ public class LoadingView extends Dialog implements View.OnClickListener {
     private void onInit() {
         View view = getLayoutInflater().inflate(R.layout.loading_view, null);
 
-      /*  ProgressBar mProgressBar = (ProgressBar) view.findViewById(R.id.progress);
-        DoubleBounce doubleBounce = new DoubleBounce();
-        doubleBounce.setBounds(0, 0,
-                100,
-                100);
-        doubleBounce.setColor(colors[7]);
-        mProgressBar.setIndeterminateDrawable(doubleBounce);*/
+//        ProgressBar mProgressBar = (ProgressBar) view.findViewById(R.id.progress);
+//        DoubleBounce doubleBounce = new DoubleBounce();
+//        doubleBounce.setBounds(0, 0,
+//                100,
+//                100);
+//        doubleBounce.setColor(colors[7]);
+//        mProgressBar.setIndeterminateDrawable(doubleBounce);
 
         view.setOnClickListener(this);
         setContentView(view);

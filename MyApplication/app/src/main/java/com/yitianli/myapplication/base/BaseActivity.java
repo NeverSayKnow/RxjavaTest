@@ -7,15 +7,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.yitianli.myapplication.widget.LoadingView;
+import com.yitianli.myapplication.widget.MyLoadingView;
 
 public class BaseActivity extends AppCompatActivity implements BaseView{
 
-    private LoadingView loadingView;
+//    private LoadingView loadingView;
+    private MyLoadingView loadingView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadingView = new LoadingView(this);
+//        loadingView = new LoadingView(this);
+        loadingView = new MyLoadingView(this);
     }
 
     @Override

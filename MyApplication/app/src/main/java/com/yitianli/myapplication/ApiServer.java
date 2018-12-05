@@ -1,11 +1,11 @@
 package com.yitianli.myapplication;
 
 import com.yitianli.myapplication.poem_mvp.PoemBean2;
+import com.yitianli.myapplication.weather.WeatherBaseData;
+import com.yitianli.myapplication.weather.WeatherResult;
 
 import io.reactivex.Observable;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -38,4 +38,12 @@ public interface ApiServer {
     @FormUrlEncoded
     @POST
     Observable<HttpResult2<WeatherData>> getWeather(@Url String url, @Field("city") String city);
+
+    //获取城市实况天气 https://free-api.heweather.com/s6/weather/now?[parameters]
+    @FormUrlEncoded
+    @POST
+    Observable<WeatherBaseData<WeatherResult>> getNowWeather(@Url String url, @Field("location") String location,
+                                                                                  @Field("key") String key);
+
+
 }

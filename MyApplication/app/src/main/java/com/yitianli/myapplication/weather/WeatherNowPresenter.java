@@ -1,25 +1,22 @@
-package com.yitianli.myapplication.poem_mvp;
+package com.yitianli.myapplication.weather;
 
-import com.yitianli.myapplication.Poem;
-import com.yitianli.myapplication.base.BaseCallback;
 import com.yitianli.myapplication.base.BasePresenter;
 
-public class PoemPresenter extends BasePresenter<PoemContract.View> implements BaseCallback<PoemBean2> {
+public class WeatherNowPresenter extends BasePresenter<WeatherContract.View> implements WeatherContract.Presenter{
 
-//    private PoemContract.View view;
 
-    public void getPoem(){
+    public void getNowWeather(){
         if (!isAttchedView()){
             return;
         }
         getView().showLoading();
-        PoemModel.getPoem(this);
+        WeatherModel.getNowWeather(getView().getLocation(),this);
     }
 
     @Override
-    public void onSuccess(PoemBean2 data) {
+    public void onSuccess(WeatherResult data) {
         if (isAttchedView()){
-            getView().showData(data);
+            getView().showData(data.getBasic(),data.getUpdate(),data.getNow());
         }
     }
 
@@ -28,12 +25,14 @@ public class PoemPresenter extends BasePresenter<PoemContract.View> implements B
         if (isAttchedView()){
             getView().showToastMsg(msg);
         }
+
     }
 
     @Override
     public void onError() {
         if (isAttchedView()){
             getView().showError();
+            getView().hideLoading();
         }
     }
 
@@ -42,5 +41,6 @@ public class PoemPresenter extends BasePresenter<PoemContract.View> implements B
         if (isAttchedView()){
             getView().hideLoading();
         }
+
     }
 }

@@ -2,55 +2,38 @@ package com.yitianli.myapplication;
 
 import android.content.Intent;
 import android.content.res.AssetManager;
-import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.yitianli.myapplication.poem_mvp.PoemActivity;
+import com.yitianli.myapplication.weather.WeatherActivity;
 
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.sql.Time;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.FlowableEmitter;
 import io.reactivex.FlowableOnSubscribe;
-import io.reactivex.FlowableSubscriber;
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
-import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Converter;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -154,22 +137,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         });
                 break;
             case R.id.btn_weather:
-                apiServer.getWeather("https://www.apiopen.top/weatherApi","上海")
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Consumer<HttpResult2<WeatherData>>() {
-                            @Override
-                            public void accept(HttpResult2<WeatherData> weatherDataHttpResult2) throws Exception {
-                                Log.e("TAG","=====" + weatherDataHttpResult2.getMsg());
-                                Log.e("TAG","=====" + weatherDataHttpResult2.getData().getCity());
-                                List<WeatherBean> list = weatherDataHttpResult2.getData().getForecast();
-                                for (WeatherBean bean: list){
-                                    Log.e("TAG", bean.getDate()+"/"+bean.getFengli()+"/"+bean.getFengxiang()
-                                            +"/"+bean.getHigh()+"/"+bean.getLow()+"/"+bean.getType());
-                                }
-
-                            }
-                        });
+//                apiServer.getWeather("https://www.apiopen.top/weatherApi","上海")
+//                        .subscribeOn(Schedulers.io())
+//                        .observeOn(AndroidSchedulers.mainThread())
+//                        .subscribe(new Consumer<HttpResult2<WeatherData>>() {
+//                            @Override
+//                            public void accept(HttpResult2<WeatherData> weatherDataHttpResult2) throws Exception {
+//                                Log.e("TAG","=====" + weatherDataHttpResult2.getMsg());
+//                                Log.e("TAG","=====" + weatherDataHttpResult2.getData().getCity());
+//                                List<WeatherBean> list = weatherDataHttpResult2.getData().getForecast();
+//                                for (WeatherBean bean: list){
+//                                    Log.e("TAG", bean.getDate()+"/"+bean.getFengli()+"/"+bean.getFengxiang()
+//                                            +"/"+bean.getHigh()+"/"+bean.getLow()+"/"+bean.getType());
+//                                }
+//
+//                            }
+//                        });
+                Intent wIntent = new Intent(this,WeatherActivity.class);
+                startActivity(wIntent);
                 break;
             case R.id.btn_flap_map:
                 apiServer.getPoem2()
