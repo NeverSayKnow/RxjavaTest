@@ -8,7 +8,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/bg">
+
+        <include layout="@layout/layout_tittle"/>
 
         <TextView
             android:id="@+id/poem_title"
@@ -29,14 +32,20 @@
             android:textSize="20sp" />
 
 
-        <TextView
-            android:id="@+id/poem_content"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:textColor="#55bece"
-            android:textSize="18sp" />
+            android:gravity="center">
+            <TextView
+                android:id="@+id/poem_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:textColor="#55bece"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
 
         <TextView
             android:id="@+id/poem_authors_introduce"
@@ -45,7 +54,8 @@
             android:layout_marginTop="5dp"
             android:gravity="left"
             android:textColor="#daa2a2"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:padding="20dp"/>
 
         <Button
             android:id="@+id/btn_random_poem"
@@ -56,7 +66,8 @@
             android:background="#55bece"
             android:text="@string/random_poem"
             android:textColor="#fff"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            style="?android:attr/borderlessButtonStyle"/>
 
     </LinearLayout>
 

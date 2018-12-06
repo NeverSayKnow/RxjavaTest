@@ -4,13 +4,19 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.yitianli.myapplication.widget.LoadingView;
+import com.yitianli.myapplication.R;
 import com.yitianli.myapplication.widget.MyLoadingView;
 
-public class BaseActivity extends AppCompatActivity implements BaseView{
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
+public abstract class BaseActivity extends AppCompatActivity implements BaseView{
+
+    @BindView(R.id.tv_name_tittle)
+    TextView tvNameTittle;
 //    private LoadingView loadingView;
     private MyLoadingView loadingView;
 
@@ -18,8 +24,19 @@ public class BaseActivity extends AppCompatActivity implements BaseView{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        loadingView = new LoadingView(this);
+        setContentView(getLayoutResource());
+        ButterKnife.bind(this);
+        initView();
+        tvNameTittle.setText(getTittleName());
         loadingView = new MyLoadingView(this);
     }
+
+    protected abstract void initView();
+
+    protected abstract int getLayoutResource();
+
+    protected abstract String getTittleName();
+
 
     @Override
     public void showLoading() {
@@ -48,5 +65,11 @@ public class BaseActivity extends AppCompatActivity implements BaseView{
     @Override
     public Context getContext() {
         return BaseActivity.this;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
     }
 }
