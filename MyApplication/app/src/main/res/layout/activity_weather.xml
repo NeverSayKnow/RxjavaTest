@@ -5,7 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".weather.WeatherActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/bg">
+
+    <include layout="@layout/layout_tittle"/>
 
     <TextView
         android:id="@+id/tv_weather"
@@ -34,9 +37,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="查询"
-            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"/>
+            android:layout_marginRight="20dp"
+            style="?android:attr/borderlessButtonStyle"/>
 
     </LinearLayout>
 
