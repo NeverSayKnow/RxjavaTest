@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.yitianli.myapplication.base.BaseActivity;
+import com.yitianli.myapplication.movie.MovieActivity;
 import com.yitianli.myapplication.poem_mvp.PoemActivity;
 import com.yitianli.myapplication.weather.WeatherActivity;
 
@@ -48,6 +49,8 @@ public class MainActivity extends BaseActivity {
                 startActivity(wIntent);
                 break;
             case R.id.btn_flow:
+                Intent movieIntent = new Intent(this,MovieActivity.class);
+                startActivity(movieIntent);
 //                Flowable.create(new FlowableOnSubscribe<String>() {
 //                    @Override
 //                    public void subscribe(FlowableEmitter<String> emitter) throws Exception {
