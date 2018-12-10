@@ -10,7 +10,8 @@
         android:layout_width="135dp"
         android:layout_height="200dp"
         android:contentDescription="@string/movie_fm"
-        android:src="@drawable/haiwang"/>
+        android:src="@drawable/haiwang"
+        android:scaleType="centerCrop"/>
 
     <TextView
         android:id="@+id/tv_movie_name_item"
@@ -20,7 +21,9 @@
         android:text="海王"
         android:textSize="14sp"
         android:textColor="@color/black"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:ellipsize="end"
+        android:lines="1"/>
 
     <RelativeLayout
         android:layout_width="wrap_content"

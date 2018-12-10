@@ -1,12 +1,16 @@
 package com.yitianli.myapplication;
 
+import com.yitianli.myapplication.movie.MovieBean;
 import com.yitianli.myapplication.poem_mvp.PoemBean2;
 import com.yitianli.myapplication.weather.WeatherBaseData;
 import com.yitianli.myapplication.weather.WeatherResult;
 
+import java.util.Map;
+
 import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -45,5 +49,9 @@ public interface ApiServer {
     Observable<WeatherBaseData<WeatherResult>> getNowWeather(@Url String url, @Field("location") String location,
                                                                                   @Field("key") String key);
 
+    //获取豆瓣电影尚在热映的电影
+    @FormUrlEncoded
+    @POST
+    Observable<MovieBean> getMovie(@Url String url, @FieldMap Map<String, String> map);
 
 }

@@ -1,23 +1,26 @@
-package com.yitianli.myapplication.weather;
+package com.yitianli.myapplication.movie;
 
 import com.yitianli.myapplication.base.BasePresenter;
 
-public class WeatherNowPresenter extends BasePresenter<WeatherContract.View> implements WeatherContract.Presenter{
+import java.util.List;
 
+public class MoviePresenter extends BasePresenter<MovieContract.View> implements MovieContract.Presenter {
 
-    public void getNowWeather(){
+    public void getMovie(){
         if (!isAttchedView()){
             return;
         }
+
         getView().showLoading();
-        WeatherModel.getNowWeather(getView().getLocation(),this);
+        MovieModel.getMovie(this);
     }
 
     @Override
-    public void onSuccess(WeatherResult data) {
+    public void onSuccess(List<MovieBean.SubjectsBean> data) {
         if (isAttchedView()){
-            getView().showData(data.getBasic(),data.getUpdate(),data.getNow());
+            getView().showData(data);
         }
+
     }
 
     @Override
@@ -25,7 +28,6 @@ public class WeatherNowPresenter extends BasePresenter<WeatherContract.View> imp
         if (isAttchedView()){
             getView().showToastMsg(msg);
         }
-
     }
 
     @Override
@@ -40,6 +42,5 @@ public class WeatherNowPresenter extends BasePresenter<WeatherContract.View> imp
         if (isAttchedView()){
             getView().hideLoading();
         }
-
     }
 }

@@ -39,6 +39,7 @@ public class WeatherModel {
                     public void onError(Throwable e) {
                         Log.e("TAG","onError");
                         presenter.onError();
+                        presenter.onComplete();
 
                     }
 

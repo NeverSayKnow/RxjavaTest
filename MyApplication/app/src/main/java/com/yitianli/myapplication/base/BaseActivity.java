@@ -26,9 +26,9 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 //        loadingView = new LoadingView(this);
         setContentView(getLayoutResource());
         ButterKnife.bind(this);
-        initView();
         tvNameTittle.setText(getTittleName());
         loadingView = new MyLoadingView(this);
+        initView();
     }
 
     protected abstract void initView();
@@ -67,9 +67,4 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         return BaseActivity.this;
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-    }
 }
