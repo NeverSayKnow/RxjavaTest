@@ -26,7 +26,7 @@ public class MovieActivity extends BaseActivity implements MovieContract.View{
         movieAdapter = new MovieAdapter(this,list);
         GridLayoutManager manager = new GridLayoutManager(MovieActivity.this, 3);
         rvMovie.setLayoutManager(manager);
-        rvMovie.addItemDecoration(new MyMovieItemDecoration(this,10));
+//        rvMovie.addItemDecoration(new MyMovieItemDecoration(this,15));
         rvMovie.setAdapter(movieAdapter);
         moviePresenter = new MoviePresenter();
         moviePresenter.attachView(this);

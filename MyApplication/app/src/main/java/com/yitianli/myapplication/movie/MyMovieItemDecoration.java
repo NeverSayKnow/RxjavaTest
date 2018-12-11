@@ -14,6 +14,7 @@ public class MyMovieItemDecoration extends RecyclerView.ItemDecoration {
 
     public MyMovieItemDecoration (Context context, int space){
         this.space = DensityUtil.dp2px(context, space);
+//        this.space = space;
     }
 
     @Override

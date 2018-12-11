@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -41,10 +42,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_movie,
                 viewGroup,false);
-        int height = ScreenUtil.getScreenHeight(viewGroup.getContext());
-        int width = ScreenUtil.getScreenWidth(viewGroup.getContext());
-        Log.e("TAG","=======" + height + "======" + width);
-        Log.e("TAG","======="+ DensityUtil.dp2px(viewGroup.getContext(),10));
         return new ViewHolder(view);
     }
 
@@ -54,6 +51,29 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         viewHolder.tv_movie_name_item.setText(bean.getTitle());
         Glide.with(context).load(bean.getImages().getSmall()).into(viewHolder.iv_movie_fm_item);
         viewHolder.tv_score_item.setText(String.valueOf(bean.getRating().getAverage()));
+        ImageView[] imageViews = new ImageView[5];
+        imageViews[0] = viewHolder.iv_star_1;
+        imageViews[1] = viewHolder.iv_star_2;
+        imageViews[2] = viewHolder.iv_star_3;
+        imageViews[3] = viewHolder.iv_star_4;
+        imageViews[4] = viewHolder.iv_star_5;
+//        int[] show = MovieModel.getStarCount(bean.getRating().getStars());
+        int[] show = MovieModel.getStarCount_score(bean.getRating().getAverage());
+
+        for (int i1 = 0; i1 < 5; i1++) {
+            Log.e("TAG","======="+show[i1]);
+            switch (show[i1]){
+                case 0:
+                    Glide.with(context).load(R.drawable.star).into(imageViews[i1]);
+                    break;
+                case 1:
+                    Glide.with(context).load(R.drawable.star2).into(imageViews[i1]);
+                    break;
+                case 2:
+                    Glide.with(context).load(R.drawable.star3).into(imageViews[i1]);
+                    break;
+            }
+        }
     }
 
     @Override
@@ -83,7 +103,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             iv_star_3 = itemView.findViewById(R.id.iv_star_3);
             iv_star_4 = itemView.findViewById(R.id.iv_star_4);
             iv_star_5 = itemView.findViewById(R.id.iv_star_5);
-//            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) iv_movie_fm_item.getLayoutParams();
+
+            int width = ScreenUtil.getScreenWidth(itemView.getContext());
+            int imageWidth = (width - DensityUtil.dp2px(itemView.getContext(),15))/3;
+            int imageHeight = (imageWidth * 40) / 27;
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) iv_movie_fm_item.getLayoutParams();
+            params.width = imageWidth;
+            params.height = imageHeight;
         }
     }
 }

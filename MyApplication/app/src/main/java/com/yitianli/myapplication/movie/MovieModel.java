@@ -60,4 +60,73 @@ public class MovieModel {
                     }
                 });
     }
+
+    /**
+     * 根据星星数两返回一个数组，用来表示需要显示的图片
+     * @param stars 星星的数量，共计50,5颗代表一星
+     * @return int[],内有5个数，分别代表显示什么图片，0-整星，1-半星，2-灰星
+     */
+    public static int[] getStarCount(String stars){
+        int show[] = new int[5];
+        int i = Integer.valueOf(stars)/5;
+        int whole = i/2; //整星数量
+        int half = 0;  //半星数量
+        int hui = 0;  //灰色星数量
+        if (i%2 == 0){
+            hui = 5-whole;
+        }else {
+            half = 1;
+            hui = 4 - whole;
+        }
+
+        int index = 0;
+        for (int i1 = 0; i1 < whole; i1++) {
+            show[index] = 0;
+            index++;
+        }
+
+        if (half != 0){
+            show[index] = 1;
+            index += 1;
+        }
+
+        for (int i1 = 0; i1 < hui; i1++) {
+            show[index] = 2;
+            index++;
+        }
+
+        return show;
+    }
+
+    public static int[] getStarCount_score(double score){
+        int i = (int) Math.round(score);
+        int show[] = new int[5];
+        int whole = i/2; //整星数量
+        int half = 0;  //半星数量
+        int hui = 0;  //灰色星数量
+        if (i%2 == 0){
+            hui = 5-whole;
+        }else {
+            half = 1;
+            hui = 4 - whole;
+        }
+
+        int index = 0;
+        for (int i1 = 0; i1 < whole; i1++) {
+            show[index] = 0;
+            index++;
+        }
+
+        if (half != 0){
+            show[index] = 1;
+            index += 1;
+        }
+
+        for (int i1 = 0; i1 < hui; i1++) {
+            show[index] = 2;
+            index++;
+        }
+
+        return show;
+    }
 }
