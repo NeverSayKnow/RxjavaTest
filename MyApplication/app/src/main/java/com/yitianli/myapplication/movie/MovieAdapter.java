@@ -1,6 +1,7 @@
 package com.yitianli.myapplication.movie;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -74,6 +75,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
                     break;
             }
         }
+
+        viewHolder.iv_movie_fm_item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context,MovieDetailActivity.class);
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     @Override
