@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +61,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         int[] show = MovieModel.getStarCount_score(bean.getRating().getAverage());
 
         for (int i1 = 0; i1 < 5; i1++) {
-            Log.e("TAG","======="+show[i1]);
             switch (show[i1]){
                 case 0:
                     Glide.with(context).load(R.drawable.star).into(imageViews[i1]);
@@ -80,6 +78,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context,MovieDetailActivity.class);
+                intent.putExtra("movie",bean);
                 context.startActivity(intent);
             }
         });

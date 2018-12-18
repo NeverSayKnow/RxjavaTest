@@ -129,4 +129,16 @@ public class MovieModel {
 
         return show;
     }
+
+    //获取一星到五星对应的前端显示图形长度的百分比
+    public static float[] getStarNum(MovieBean.SubjectsBean.RatingBean.DetailsBean bean){
+        float[] floats = new float[5];
+        float total = bean.get_$1() + bean.get_$2() + bean.get_$3() + bean.get_$4() + bean.get_$5();
+        floats[0] = bean.get_$1() / total;
+        floats[1] = bean.get_$2() / total;
+        floats[2] = bean.get_$3() / total;
+        floats[3] = bean.get_$4() / total;
+        floats[4] = bean.get_$5() / total;
+        return floats;
+    }
 }

@@ -10,4 +10,6 @@
     <string name="back">返回</string>
     <string name="movie_fm">电影封面</string>
     <string name="movie_play">热映电影</string>
+    <string name="want_watch">想看</string>
+    <string name="had_watch">看过</string>
 </resources>

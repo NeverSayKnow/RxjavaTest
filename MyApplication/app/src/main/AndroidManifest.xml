@@ -24,7 +24,8 @@
         <activity android:name=".poem_mvp.PoemActivity" />
         <activity android:name=".weather.WeatherActivity" />
         <activity android:name=".movie.MovieActivity" />
-        <activity android:name=".movie.MovieDetailActivity"></activity>
+        <activity android:name=".movie.MovieDetailActivity" />
+        <activity android:name=".movie.MovieWebActivity"></activity>
     </application>
 
 </manifest>

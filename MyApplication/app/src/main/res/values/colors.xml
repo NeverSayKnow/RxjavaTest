@@ -8,4 +8,5 @@
     <color name="btn_bg">#55BECE</color>
     <color name="bg">#eeeeee</color>
     <color name="movie_name_hui">#b3b3b3</color>
+    <color name="movie_line">#b6b8b9</color>
 </resources>
