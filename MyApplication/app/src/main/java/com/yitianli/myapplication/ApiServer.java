@@ -1,6 +1,7 @@
 package com.yitianli.myapplication;
 
 import com.yitianli.myapplication.movie.MovieBean;
+import com.yitianli.myapplication.movie.MovieDetailBean;
 import com.yitianli.myapplication.poem_mvp.PoemBean2;
 import com.yitianli.myapplication.weather.WeatherBaseData;
 import com.yitianli.myapplication.weather.WeatherResult;
@@ -53,5 +54,10 @@ public interface ApiServer {
     @FormUrlEncoded
     @POST
     Observable<MovieBean> getMovie(@Url String url, @FieldMap Map<String, String> map);
+
+    //获取豆瓣电影某一部电影的详情信息
+    @FormUrlEncoded
+    @POST
+    Observable<MovieDetailBean> getMovieDetail(@Url String url,@FieldMap Map<String,String> map);
 
 }

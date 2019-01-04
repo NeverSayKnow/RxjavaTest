@@ -7,7 +7,7 @@ public interface MovieDetailContract {
 
     interface View extends BaseView{
 
-        void showData(MovieBean.SubjectsBean bean);
+        void showData(MovieDetailBean bean);
 
         void showStarNum(float[] floats);
 
@@ -15,9 +15,11 @@ public interface MovieDetailContract {
 
     }
 
-    interface Presenter extends BaseCallback{
+    interface Presenter extends BaseCallback<MovieDetailBean>{
 
-        void getStarNum(MovieBean.SubjectsBean.RatingBean.DetailsBean bean);
+        void getMovieDetail(String id);
+
+        void getStarNum(MovieDetailBean.RatingBean.DetailsBean bean);
 
         void getStar(double score);
 

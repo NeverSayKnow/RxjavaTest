@@ -1,6 +1,7 @@
 package com.yitianli.myapplication.movie;
 
-import android.util.Log;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -14,6 +15,8 @@ import com.yitianli.myapplication.base.BaseActivity;
 import com.yitianli.myapplication.utils.DensityUtil;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -57,15 +60,29 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
     ImageView ivStar5;
     @BindView(R.id.tv_how_many_people)
     TextView tvHowManyPeople;
+    @BindView(R.id.rv_tags)
+    RecyclerView rvTags;
+    @BindView(R.id.tv_intro_movie_detail)
+    TextView tvIntro;
 
     private MovieDetailPresenter presenter;
+    private MovieTagsAdapter movieTagsAdapter;
+    private List<String> list;
 
     @Override
     protected void initView() {
-        MovieBean.SubjectsBean bean = getIntent().getParcelableExtra("movie");
+        String id = getIntent().getStringExtra("id");
         presenter = new MovieDetailPresenter();
         presenter.attachView(this);
-        showData(bean);
+        //跟所属频道有关的数据
+        list = new ArrayList<>();
+        movieTagsAdapter = new MovieTagsAdapter(this, list);
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+        manager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        rvTags.setLayoutManager(manager);
+        rvTags.setAdapter(movieTagsAdapter);
+        //请求数据
+        presenter.getMovieDetail(id);
     }
 
     @Override
@@ -89,7 +106,7 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
     }
 
     @Override
-    public void showData(MovieBean.SubjectsBean bean) {
+    public void showData(MovieDetailBean bean) {
 
         //设置圆角
         RoundedCorners roundedCorners = new RoundedCorners(DensityUtil.dp2px(this, 5));
@@ -111,20 +128,28 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
         tvScore.setText(String.valueOf(bean.getRating().getAverage()));
 
         //多少人看过
-        double d = bean.getCollect_count() / 1000.0;
+        double collect = bean.getCollect_count() / 1000.0;
+        double wish = bean.getWish_count() / 1000.0;
         DecimalFormat df = new DecimalFormat("#.0");
-        String s = "有"+ df.format(d) + "k人已看过";
+        String s = "有" + df.format(collect) + "k人看过  " + "有" + df.format(wish) + "k人想看";
         tvHowManyPeople.setText(s);
         //获取各个星数的人数
         presenter.getStarNum(bean.getRating().getDetails());
         //获取分数
         presenter.getStar(bean.getRating().getAverage());
 
+        //所属频道
+        list = bean.getTags();
+        list.add(0,"所属频道");
+        movieTagsAdapter.setList(list);
+        movieTagsAdapter.notifyDataSetChanged();
+        //简介
+        tvIntro.setText(bean.getSummary());
+
     }
 
     @Override
     public void showStarNum(float[] ints) {
-        Log.e("TAG", "showStarNum" + ints[0]);
         tvLine5.setWidth(DensityUtil.dp2px(this, ints[4] * 150));
         tvLine4.setWidth(DensityUtil.dp2px(this, ints[3] * 150));
         tvLine3.setWidth(DensityUtil.dp2px(this, ints[2] * 150));
@@ -141,7 +166,7 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
         imageViews[3] = ivStar4;
         imageViews[4] = ivStar5;
         for (int i1 = 0; i1 < 5; i1++) {
-            switch (ints[i1]){
+            switch (ints[i1]) {
                 case 0:
                     Glide.with(this).load(R.drawable.star).into(imageViews[i1]);
                     break;

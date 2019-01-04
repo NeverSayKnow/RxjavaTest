@@ -3,7 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".poem_mvp.PoemActivity">
+    tools:context=".poem_mvp.PoemActivity"
+    android:scrollbars="none"
+    android:fadingEdge="none"
+    android:overScrollMode="never">
 
     <LinearLayout
         android:layout_width="match_parent"
